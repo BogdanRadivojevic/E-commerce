@@ -10,18 +10,6 @@ use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
-//Route::get('/', function () {
-//    return view('welcome');
-//})->name('welcome');
-
-//Route::get('/dashboard', function () {
-//    $user = Auth::user(); // Get the authenticated user
-//
-//    return view('dashboard.index', compact('user'));
-//})->middleware(['role:admin'])
-//    ->name('dashboard');
-
-
 Route::get('/users/search', [UserController::class, 'search']);
 
 Route::middleware(['auth'])->group(function () {
@@ -93,3 +81,8 @@ Route::middleware(['role:admin'])->group(function () {
 });
 
 //Route::get('/services', [ServiceController::class, 'index'])->name('service.index');
+
+Route::post('/notifications/read', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+    return response()->json(['status' => 'ok']);
+})->name('notifications.read');

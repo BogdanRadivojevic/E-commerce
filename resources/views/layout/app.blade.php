@@ -36,7 +36,6 @@
                 <x-nav-link href="/login" :active="request()->routeIs('login')">Login</x-nav-link>
             @endguest
             @auth
-{{--                @if(auth()->user()->role->name === 'admin')--}}
                 @if(auth()->user()->role->name === 'admin')
                     <x-nav-link href="/services" :active="request()->routeIs('service.index')">Service</x-nav-link>
                     <x-nav-link href="/dashboard" :active="request()->routeIs('dashboard')">Dashboard</x-nav-link>
@@ -50,6 +49,60 @@
                             Logout
                         </button>
                     </form>
+                </li>
+
+                <!-- Notifications dropdown -->
+                <li class="relative ml-4">
+                    <button id="notif-button" class="relative text-white focus:outline-none"
+                            onclick="toggleNotifDropdown()">
+                        <!-- Bell icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                             class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-5-5.917V4a2 2 0 10-4 0v1.083A6.002 6.002 0 004 11v3.159c0 .538-.214 1.055-.595 1.436L2 17h5m7 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+
+                        <!-- Unread count badge -->
+                        @php
+                            $unreadCount = auth()->user()->unreadNotifications->count();
+                        @endphp
+
+                        @if($unreadCount > 0)
+                            <span
+                                class="absolute -top-1 -right-1 bg-red-600 text-xs rounded-full px-1.5 py-0.5 font-bold leading-none">
+                {{ $unreadCount }}
+            </span>
+                        @endif
+                    </button>
+
+                    <!-- Dropdown -->
+                    <div id="notif-dropdown"
+                         class="hidden absolute right-0 mt-2 w-80 max-h-96 overflow-y-auto bg-white rounded-lg shadow-lg z-50 border border-gray-200">
+                        <div class="p-4 border-b">
+                            <h3 class="text-lg font-semibold text-gray-800">Notifications</h3>
+                        </div>
+                        <div class="divide-y">
+                            @forelse(auth()->user()->notifications as $notification)
+                                <div
+                                    class="p-3 hover:bg-yellow-50 transition {{ is_null($notification->read_at) ? 'bg-yellow-100' : '' }}">
+                                    <div class="flex flex-col space-y-1">
+                <span class="text-sm text-gray-800">
+                    Your device <strong>{{ $notification->data['device_name'] }}</strong> has been repaired!
+                    <br>
+                    Price: ${{ number_format($notification->data['price'], 2) }}
+                </span>
+                                        <span class="text-xs text-gray-500">
+                    {{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}
+                </span>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="p-4 text-center text-gray-500 text-sm">
+                                    No notifications
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
                 </li>
             @endauth
         </ul>
@@ -74,6 +127,45 @@
         </svg>
     </div>
 </a>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const notifButton = document.getElementById('notif-button');
+        const notifDropdown = document.getElementById('notif-dropdown');
+
+        if (notifButton && notifDropdown) {
+            notifButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifDropdown.classList.toggle('hidden');
+
+                // Send AJAX request to mark notifications as read
+                if (!notifDropdown.classList.contains('hidden')) {
+                    fetch('{{ route('notifications.read') }}', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json',
+                        },
+                    }).then(res => {
+                        if (res.ok) {
+                            // Optionally, remove the red badge
+                            const badge = notifButton.querySelector('span');
+                            if (badge) {
+                                badge.remove();
+                            }
+                        }
+                    });
+                }
+            });
+
+            window.addEventListener('click', (e) => {
+                if (!notifButton.contains(e.target) && !notifDropdown.contains(e.target)) {
+                    notifDropdown.classList.add('hidden');
+                }
+            });
+        }
+    });
+</script>
 
 </body>
 

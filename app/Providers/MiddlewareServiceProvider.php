@@ -17,6 +17,7 @@ class MiddlewareServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->router->aliasMiddleware('role', \App\Http\Middleware\RoleMiddleware::class);
+        $this->app->router->aliasMiddleware('forceJsonResponse', \App\Http\Middleware\ForceJsonResponse::class);
     }
 
     /**

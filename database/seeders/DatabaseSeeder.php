@@ -21,19 +21,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Kreiranje uloga
-        $adminRole = Role::factory()->create(['name' => 'admin']);
-        $customerRole = Role::factory()->create(['name' => 'customer']);
+        // The roles are created in migration file
+        // because if the data isn't in the database,
+        // the registration the user will fail
+//        $adminRole = Role::factory()->create(['name' => 'admin']);
+//        $customerRole = Role::factory()->create(['name' => 'customer']);
 
         // Create users and assign roles
-        $admins = User::factory(5)->create(['role_id' => $adminRole->id]);
-        $customers = User::factory(10)->create(['role_id' => $customerRole->id]);
-//
-//        // Kreiranje korisnika i dodela rola
-//        $roles = Role::all(); // Dohvata sve
-//        User::factory(10)->create()->each(function ($user) use ($roles) {
-//            $user->role_id = $roles->random()->id;
-//            $user->save();
-//        });
+        $admins = User::factory(5)->create(['role_id' => Role::where('name', 'admin')->first()->id]);
+        $customers = User::factory(10)->create(['role_id' => Role::where('name', 'customer')->first()->id]);
 
         // Kreiranje proizvoda
         Product::factory(20)->create();

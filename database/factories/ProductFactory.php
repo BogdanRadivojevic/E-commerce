@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ProductFactory extends Factory
 {
     protected $model = Product::class;
+
     /**
      * Define the model's default state.
      *
@@ -25,7 +26,8 @@ class ProductFactory extends Factory
             'description' => $this->faker->paragraph, // Nasumičan opis proizvoda
             'price' => $this->faker->randomFloat(2, 10, 1000),
             'stock' => $this->faker->numberBetween(0, 100), // Dostupna količina na stanju
-            'image_path' => $this->faker->imageUrl(640, 480, 'electronics', true), // Nasumičan URL slike
+//            'image_path' => $this->faker->imageUrl(640, 480, 'electronics', true), // Nasumičan URL slike *** site unavailable
+            'image_path' => "https://placehold.co/640x480?text=Electronics",
         ];
     }
 }

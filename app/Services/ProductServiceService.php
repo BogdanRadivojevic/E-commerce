@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\ProductService;
+use App\Notifications\ServiceRepairedNotification;
 use App\QueryBuilder\ProductServiceQueryBuilder;
 use Illuminate\Http\Request;
 class ProductServiceService implements IProductServiceService
@@ -56,7 +57,13 @@ class ProductServiceService implements IProductServiceService
         $service->price = $validate;
 
         $service->save();
-        // add this to the order
+        // todo: add this to the order
+        $user = $service->serviceUser;
+
+        if ($user) {
+            $user->notify(new ServiceRepairedNotification($service));
+        }
+
 
     }
 

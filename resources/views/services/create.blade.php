@@ -41,14 +41,13 @@
 
             <div class="mb-4">
                 <x-form-label for="service_user">User Email</x-form-label>
-                <x-form-input id="service_user" name="service_user" type="text" required placeholder="User" autocomplete="on" />
+                <x-form-input id="service_user" name="service_user" type="text" required placeholder="User" autocomplete="off" />
                 <div id="user-suggestions" class="bg-white border rounded shadow max-h-60 overflow-y-auto hidden"></div>
                 <!-- Add a hidden field to store user ID -->
                 <input type="hidden" name="service_user_id" id="service_user_id">
                 @error('service_user_id')
                     <span class="text-red-600 text-sm mt-2">{{ $message }}</span>
                 @enderror
-
             </div>
 
             <!-- Submit Button -->
