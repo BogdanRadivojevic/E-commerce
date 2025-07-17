@@ -7,8 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SessionController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/users/search', [UserController::class, 'search']);
 
@@ -25,12 +25,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/register', [RegisterUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisterUserController::class, 'store']);
 Route::delete('/register', [RegisterUserController::class, 'destroy'])->name('register.destroy');
-
-
-// Session
-//Route::get('/login', [SessionController::class, 'create'])->name('login');
-//Route::post('/login', [SessionController::class, 'store']);
-//Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 Route::controller(SessionController::class)->group(function () {
     Route::get('/login', 'create')->name('login');
@@ -70,17 +64,12 @@ Route::middleware(['role:admin'])->group(function () {
         ->middleware('auth')
         ->name('dashboard');
 
-    Route::controller(OrderController::class)->group(function() {
+    Route::controller(OrderController::class)->group(function () {
         Route::get('/orders', 'index')->name('orders.index');
         Route::get('/orders/completed', 'completedOrders')->name('orders.completed');
         Route::post('/orders/completed/pdf', 'generatePDF')->name('orders.generatePDF');
     });
-
-//    Route::get('/orders/completed', [OrderController::class, 'completedOrders'])->name('orders.completed');
-
 });
-
-//Route::get('/services', [ServiceController::class, 'index'])->name('service.index');
 
 Route::post('/notifications/read', function () {
     auth()->user()->unreadNotifications->markAsRead();
