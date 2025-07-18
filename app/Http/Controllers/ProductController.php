@@ -130,6 +130,9 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+
+        //fixme: kada se brise proizvod, ne brise se slika u public/images/products
+
         // Delete the product from the database
         $product->delete();
 
