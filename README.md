@@ -87,7 +87,7 @@ Here are some example screenshots of the app:
   ![Admin Dashboard](screenshots/dashboard.png)
 
 - Complete orders:
-  ![Complete Orders](screenshots/orders.png)
+  ![Complete Orders](screenshots/completed_orders.png)
 
 - Login page:  
   ![Login Page](screenshots/login.png)
@@ -96,6 +96,7 @@ Here are some example screenshots of the app:
   ![Register Page](screenshots/register.png)
 
 ## 👤 Author
+<h1>Bogdan Radivojević</h1>
 
 [![Email](https://img.shields.io/badge/Email-radivojevic.bogdan1@gmail.com-blue?style=for-the-badge&logo=gmail)](mailto:radivojevic.bogdan1@gmail.com)  
 [![GitHub](https://img.shields.io/badge/GitHub-BogdanRadivojevic-181717?style=for-the-badge&logo=github)](https://github.com/BogdanRadivojevic)  

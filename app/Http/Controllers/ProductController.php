@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\QueryBuilder\ProductQueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -69,7 +70,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             // Store the image
             $imagePath = $request->file('image')->store('images/products', 'public');
-            $product->image_path = 'storage/' . $imagePath;
+            $product->image_path = $imagePath;
         }
 
         // Save the product
@@ -106,21 +107,17 @@ class ProductController extends Controller
         $product->description = $validatedData['description'];
 
         if ($request->hasFile('image')) {
-            // Proverava da li je 'image_path' postavljen (da slika postoji) i da li 'image_path' nije validan URL.
-            // Funkcija filter_var sa parametrom FILTER_VALIDATE_URL se koristi da se proveri da li je putanja URL.
-            // Ako putanja nije validan URL, znači da je to lokalna putanja do slike koja se nalazi na serveru,
-            // pa možemo da je obrišemo sa 'unlink'.
-            if ($product->image_path && !filter_var($product->image_path, FILTER_VALIDATE_URL)) {
-                // Proverava da li datoteka postoji na zadatoj putanji u javnom direktorijumu aplikacije.
-                // Ako datoteka postoji, može se sigurno obrisati kako bi se oslobodio prostor na disku.
-                if (file_exists(public_path($product->image_path))) {
-                    unlink(public_path($product->image_path));
-                }
-            }
+            // Save the old image path before overwriting
+            $oldImagePath = $product->image_path;
 
             // Store the new image
             $imagePath = $request->file('image')->store('images/products', 'public');
-            $product->image_path = 'storage/' . $imagePath;
+            $product->image_path = $imagePath;
+
+            // Delete the old image if it exists and is not a URL
+            if ($oldImagePath && !filter_var($oldImagePath, FILTER_VALIDATE_URL)) {
+                Storage::disk('public')->delete($oldImagePath);
+            }
         }
 
         $product->save();
@@ -130,10 +127,6 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-
-        //fixme: kada se brise proizvod, ne brise se slika u public/images/products
-
-        // Delete the product from the database
         $product->delete();
 
         // Redirect to the product index page with a success message

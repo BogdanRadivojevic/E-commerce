@@ -1,5 +1,3 @@
-{{-- resources/views/product/edit.blade.php --}}
-
 @extends('layout.app')
 
 @section('title', 'Edit Product')
@@ -69,12 +67,12 @@
             </div>
 
             <!-- Current Image Preview (if exists) -->
-            @if($product->image_path)
-                <div class="mb-4">
+            <div class="mb-4" id="image-preview">
+            @if($product->imageUrl())
                     <p class="text-sm text-gray-600">Current Image:</p>
-                    <img src="{{ asset($product->image_path) }}" alt="Current product image" class="w-24 h-24 object-cover rounded-lg mt-2">
-                </div>
+                    <img src="{{ $product->imageUrl() }}" alt="Current product image" class="w-24 h-24 object-cover rounded-lg mt-2">
             @endif
+            </div>
 
             <!-- Submit Button -->
             <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">

@@ -77,25 +77,3 @@
     </x-section>
 @endsection
 
-<script>
-    document.getElementById('image').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        const preview = document.createElement('img');
-        const previewContainer = document.getElementById('image-preview');
-
-        // Clear existing preview
-        previewContainer.innerHTML = '';
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.alt = 'Selected Product Image';
-                preview.style.maxWidth = '200px';
-                preview.style.marginTop = '10px';
-                previewContainer.appendChild(preview);
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-</script>

@@ -5,7 +5,7 @@
 @section('content')
     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-12">
         <div class="flex flex-wrap items-center">
-            <img src="{{ asset($product->image_path) }}" alt="{{ $product->model }}" class="w-96 h-96 object-cover rounded-lg mr-5">
+            <img src="{{ asset( $product->imageUrl()) }}" alt="{{ $product->model }}" class="w-96 h-96 object-cover rounded-lg mr-5">
             <div class="flex-1">
                 <h2 class="text-3xl font-bold text-gray-800">{{ $product->brand }} - {{ $product->model }}</h2>
                 <p class="text-xl text-gray-600 mt-2">Price: <span class="font-semibold text-green-600">${{ number_format($product->price, 2) }}</span></p>
@@ -23,7 +23,7 @@
                             <form action="{{ route('product.destroy', $product) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">Delete Product</button>
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md" onclick="return confirm('Are you sure you want to delete this product?')">Delete Product</button>
                             </form>
                         @endif
                     </div>
@@ -42,8 +42,4 @@
     <div class="mt-6">
         <a href="{{ route('product.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-md">Back to Products</a>
     </div>
-
-
-
-
 @endsection

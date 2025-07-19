@@ -32,7 +32,7 @@
             @foreach($products as $product)
                 <div class="flex flex-wrap items-center bg-white p-5 rounded-lg shadow-md">
                     <a href="{{ route('product.show', $product) }}">
-                        <img src="{{ asset($product->image_path) }}" alt="{{ $product->model }}"
+                        <img src="{{  $product->imageUrl() }}" alt="{{ $product->model }}"
                              class="w-24 h-24 object-cover rounded-lg mr-5">
                     </a>
                     <div class="flex flex-1 flex-col sm:flex-row justify-between items-start sm:items-center">
