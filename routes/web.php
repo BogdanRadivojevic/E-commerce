@@ -72,6 +72,6 @@ Route::middleware(['role:admin'])->group(function () {
 });
 
 Route::post('/notifications/read', function () {
-    auth()->user()->unreadNotifications->markAsRead();
+    auth()->user()->unreadNotifications()->update(['read_at' => now()]);
     return response()->json(['status' => 'ok']);
 })->name('notifications.read');

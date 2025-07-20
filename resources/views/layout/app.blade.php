@@ -129,44 +129,12 @@
 </a>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const notifButton = document.getElementById('notif-button');
-        const notifDropdown = document.getElementById('notif-dropdown');
-
-        if (notifButton && notifDropdown) {
-            notifButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                notifDropdown.classList.toggle('hidden');
-
-                // Send AJAX request to mark notifications as read
-                if (!notifDropdown.classList.contains('hidden')) {
-                    fetch('{{ route('notifications.read') }}', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Accept': 'application/json',
-                        },
-                    }).then(res => {
-                        if (res.ok) {
-                            // Optionally, remove the red badge
-                            const badge = notifButton.querySelector('span');
-                            if (badge) {
-                                badge.remove();
-                            }
-                        }
-                    });
-                }
-            });
-
-            window.addEventListener('click', (e) => {
-                if (!notifButton.contains(e.target) && !notifDropdown.contains(e.target)) {
-                    notifDropdown.classList.add('hidden');
-                }
-            });
+    window.Laravel = {
+        csrfToken: '{{ csrf_token() }}',
+        routes: {
+            notificationsRead: '{{ route('notifications.read') }}',
         }
-    });
+    };
 </script>
-
 </body>
-
 </html>

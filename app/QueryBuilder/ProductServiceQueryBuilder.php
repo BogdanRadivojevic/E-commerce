@@ -18,6 +18,7 @@ class ProductServiceQueryBuilder extends QueryBuilder
     public function applyFilters(Request $request): QueryBuilder
     {
         $this->filterByAuthenticatedUser($request);
+        $this->applySorting($request);
         $this->filterByStatus($request);
 
         return $this;

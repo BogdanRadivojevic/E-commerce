@@ -10,3 +10,10 @@
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+
+input::-ms-reveal {
+    display: none;
+}
+input::-ms-clear {
+    display: none;
+}

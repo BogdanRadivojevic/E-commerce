@@ -40,11 +40,7 @@
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring focus:ring-blue-200"
                        placeholder="Enter your password">
                 <button type="button" id="toggle-password" class="absolute top-8 right-3 text-gray-500 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M15 12m0 4a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 0m8 4-4.5-4.5m0 0m-1.5-1.5 1.5 1.5m-1.5 0-4.5-4.5" />
-                    </svg>
+                    <x-icon name="togglePassword" class="w-5 h-5"/>
                 </button>
             </div>
 

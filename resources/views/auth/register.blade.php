@@ -42,32 +42,22 @@
             </div>
 
             <!-- Password Field -->
-{{--            <div class="mb-4">--}}
-{{--                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>--}}
-{{--                <input id="password" type="password" name="password" required--}}
-{{--                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring focus:ring-blue-200"--}}
-{{--                       placeholder="Enter your password">--}}
-{{--            </div>--}}
-
-            <!-- Password Field -->
             <div class="mb-4 relative">
                 <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                 <input id="password" type="password" name="password" required
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                        placeholder="Enter your password">
-                <button type="button" id="toggle-password" class="absolute top-8 right-3 text-gray-500 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                         stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M15 12m0 4a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 0m8 4-4.5-4.5m0 0m-1.5-1.5 1.5 1.5m-1.5 0-4.5-4.5" />
-                    </svg>
+                <button type="button" id="toggle-password"
+                        class="absolute top-8 right-3 text-gray-500 focus:outline-none">
+                    <x-icon name="togglePassword" class="w-5 h-5"></x-icon>
                 </button>
             </div>
 
             <!-- Confirm Password Field -->
             <div class="mb-4">
-                <label for="password_confirmation" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
-                <input id="password_confirmation" type="password" name="password_confirmation" required
+                <label for="password_confirmation" class="block text-gray-700 text-sm font-bold mb-2">Confirm
+                    Password</label>
+                  <input id="password_confirmation" type="password" name="password_confirmation" required
                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring focus:ring-blue-200"
                        placeholder="Re-enter your password">
             </div>
@@ -94,7 +84,8 @@
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Register
                 </button>
-                <a href="{{ route('login') }}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                <a href="{{ route('login') }}"
+                   class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
                     Already have an account? Login
                 </a>
             </div>

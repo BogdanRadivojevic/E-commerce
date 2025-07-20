@@ -1,4 +1,4 @@
-@extends('layout.app')
+ @extends('layout.app')
 
 @section('title', 'Dashboard')
 
@@ -22,37 +22,29 @@
                 <h2 class="text-2xl font-semibold">{{ $num_of_products }}</h2>
                 <p class="mt-2">Products</p>
             </div>
-            <x-icon name="cube" class="w-10 h-10" />
+            <x-icon name="cube" class="w-6 h-6" />
         </div>
         <div class="bg-green-600 text-white p-6 rounded-lg shadow-md flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-semibold">{{ $num_of_orders }}</h2>
                 <p class="mt-2">Orders</p>
             </div>
-            <x-icon name="shopping-cart" class="w-10 h-10" />
+            <x-icon name="shopping-cart" class="w-6 h-6" />
         </div>
         <div class="bg-yellow-500 text-white p-6 rounded-lg shadow-md flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-semibold">${{ number_format($revenue, 2) }}</h2>
                 <p class="mt-2">Revenue</p>
             </div>
-            <x-icon name="dollar-sign" class="w-10 h-10" />
+            <x-icon name="dollar-sign" class="w-6 h-6" />
         </div>
         <div class="bg-gray-600 text-white p-6 rounded-lg shadow-md flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-semibold">{{ $num_of_product_services }}</h2>
                 <p class="mt-2">Services</p>
             </div>
-            {{-- todo: add icon --}}
-            <x-icon name="service" class="w-10 h-10" />
+            <x-icon name="service" class="w-6 h-6" />
         </div>
-{{--        <div class="bg-gray-600 text-white p-6 rounded-lg shadow-md flex items-center justify-between">--}}
-{{--            <div>--}}
-{{--                <h2 class="text-2xl font-semibold">{{ $num_of_product_services }}</h2>--}}
-{{--                <p class="mt-2">Services Pending</p>--}}
-{{--            </div>--}}
-{{--            <x-icon name="tools" class="w-10 h-10" />--}}
-{{--        </div>--}}
 
         <!-- Quick Actions -->
         <div class="col-span-1 lg:col-span-4 bg-white shadow-md rounded px-8 py-6">

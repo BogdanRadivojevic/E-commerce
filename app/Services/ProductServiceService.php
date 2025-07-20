@@ -15,8 +15,7 @@ class ProductServiceService implements IProductServiceService
 
         // Apply filters (including the auth_user filter) and sorting
         $query = $queryBuilder
-            ->applyFilters($request)  // Apply the authenticated user filter
-            ->applySorting($request)  // Apply sorting
+            ->applyFilters($request)
             ->getQuery();
 
 
@@ -63,8 +62,6 @@ class ProductServiceService implements IProductServiceService
         if ($user) {
             $user->notify(new ServiceRepairedNotification($service));
         }
-
-
     }
 
     public function countService(): int

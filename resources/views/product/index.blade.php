@@ -4,18 +4,44 @@
 
 @section('content')
     <section class="space-y-6">
-        <!-- Sorting Controls -->
-        <div class="flex justify-between items-center">
-            <div>
-                <span class="text-gray-600">Sort by:</span>
-                <a href="{{ route('product.index', ['sort_by' => 'created_at', 'order' => request('order') == 'desc' ? 'asc' : 'desc']) }}"
-                   class="text-blue-600 hover:text-blue-800">Date</a> |
-                <a href="{{ route('product.index', ['sort_by' => 'brand', 'order' => request('order') == 'desc' ? 'asc' : 'desc']) }}"
-                   class="text-blue-600 hover:text-blue-800">Name</a> |
-                <a href="{{ route('product.index', ['sort_by' => 'price', 'order' => request('order') == 'desc' ? 'asc' : 'desc']) }}"
-                   class="text-blue-600 hover:text-blue-800">Price</a>
+        <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
+
+            <!-- Sorting Controls -->
+            <div class="flex justify-between items-center">
+                <div>
+                    <span class="text-gray-600">Sort by:</span>
+                    <a href="{{ route('product.index', ['sort_by' => 'created_at', 'order' => request('order') == 'desc' ? 'asc' : 'desc']) }}"
+                       class="text-blue-600 hover:text-blue-800">Date</a> |
+                    <a href="{{ route('product.index', ['sort_by' => 'brand', 'order' => request('order') == 'desc' ? 'asc' : 'desc']) }}"
+                       class="text-blue-600 hover:text-blue-800">Name</a> |
+                    <a href="{{ route('product.index', ['sort_by' => 'price', 'order' => request('order') == 'desc' ? 'asc' : 'desc']) }}"
+                       class="text-blue-600 hover:text-blue-800">Price</a>
+                </div>
             </div>
+
+            <!-- Search bar -->
+            <form method="GET" action="{{ route('product.index') }}" class="flex space-x-2 items-end">
+                <div>
+                    <x-form-input
+                        id="search"
+                        name="search"
+                        type="text"
+                        value="{{ request('search') }}"
+                        placeholder="Search products..."
+                        aria-label="Search products"
+                        class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300 w-64"
+                    />
+                </div>
+                <button
+                    type="submit"
+                    aria-label="Submit search"
+                    class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg h-10"
+                >
+                    Search
+                </button>
+            </form>
         </div>
+
 
         <!-- Product List -->
         @if($products->isEmpty())
