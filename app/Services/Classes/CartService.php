@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Classes;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Services\Interfaces\ICartService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 

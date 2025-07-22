@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductService;
-use App\Services\DashboardService;
-use App\Services\ProductServiceService;
+use App\Services\Classes\DashboardService;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller

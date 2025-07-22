@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Classes;
 
 use App\Models\ProductService;
 use App\Notifications\ServiceRepairedNotification;
 use App\QueryBuilder\ProductServiceQueryBuilder;
+use App\Services\Interfaces\IProductServiceService;
 use Illuminate\Http\Request;
+
 class ProductServiceService implements IProductServiceService
 {
     public function getFilteredServices(Request $request)

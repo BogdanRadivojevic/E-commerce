@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Classes;
 
-use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductService;
+use App\Services\Interfaces\IDashboardService;
+use App\Services\Interfaces\IOrderService;
+use App\Services\Interfaces\IProductServiceService;
 
 class DashboardService implements IDashboardService
 {

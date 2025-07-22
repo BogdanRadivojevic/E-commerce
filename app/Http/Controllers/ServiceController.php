@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductService;
 use App\Models\User;
-use App\QueryBuilder\ProductServiceQueryBuilder;
-use App\Services\IProductServiceService;
+use App\Services\Interfaces\IProductServiceService;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -87,12 +86,14 @@ class ServiceController extends Controller
         return redirect()->route('service.index')->with('success', 'Service deleted successfully!');
     }
 
-    public function editFinish(Request $request, ProductService $service){
+    public function editFinish(Request $request, ProductService $service)
+    {
 //        $service = ProductService::find($request->service_id);
         return view('services.edit_finish', compact('service'));
     }
 
-    public function finish(Request $request, ProductService $service){
+    public function finish(Request $request, ProductService $service)
+    {
 
         $validate = $request->validate([
             'price' => 'required|numeric|min:0', // Ensure the price is valid

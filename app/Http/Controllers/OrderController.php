@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Services\OrderService;
+use App\Services\Classes\OrderService;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller

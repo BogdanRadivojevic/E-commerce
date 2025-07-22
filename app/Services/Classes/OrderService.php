@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Classes;
 
 use App\Models\Order;
+use App\Services\Interfaces\IOrderService;
 use Illuminate\Support\Facades\Auth;
 
 class OrderService implements IOrderService
