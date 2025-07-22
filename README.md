@@ -104,4 +104,3 @@ Here are some example screenshots of the app:
 ---
 
 ⭐ *Thank you for checking out this project!*
->>>>>>> master
