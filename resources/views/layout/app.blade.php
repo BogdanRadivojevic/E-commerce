@@ -86,14 +86,14 @@
                                 <div
                                     class="p-3 hover:bg-yellow-50 transition {{ is_null($notification->read_at) ? 'bg-yellow-100' : '' }}">
                                     <div class="flex flex-col space-y-1">
-                <span class="text-sm text-gray-800">
-                    Your device <strong>{{ $notification->data['device_name'] }}</strong> has been repaired!
-                    <br>
-                    Price: ${{ number_format($notification->data['price'], 2) }}
-                </span>
+                                        <span class="text-sm text-gray-800">
+                                            Your device <strong>{{ $notification->data['device_name'] }}</strong> has been repaired!
+                                            <br>
+                                            Price: ${{ number_format($notification->data['price'], 2) }}
+                                        </span>
                                         <span class="text-xs text-gray-500">
-                    {{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}
-                </span>
+                                            {{ \Carbon\Carbon::parse($notification->created_at)->diffForHumans() }}
+                                        </span>
                                     </div>
                                 </div>
                             @empty

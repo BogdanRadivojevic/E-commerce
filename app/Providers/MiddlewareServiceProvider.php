@@ -2,21 +2,18 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\ServiceProvider;
 
 class MiddlewareServiceProvider extends ServiceProvider
 {
 
-    /* fixme:
-     * if the middleware doesn't work, return to classical approach (Middleware::class)
-     * instead of using MiddlewareServiceProvider
-    */
     /**
      * Register services.
      */
     public function register(): void
     {
-        $this->app->router->aliasMiddleware('role', \App\Http\Middleware\RoleMiddleware::class);
+        $this->app->router->aliasMiddleware('role', RoleMiddleware::class);
     }
 
     /**

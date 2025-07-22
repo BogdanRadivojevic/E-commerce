@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Register
 Route::get('/register', [RegisterUserController::class, 'create'])->name('register');
-Route::post('/register', [RegisterUserController::class, 'store']);
+Route::post('/register', [RegisterUserController::class, 'store'])->middleware('throttle:1,1');
 Route::delete('/register', [RegisterUserController::class, 'destroy'])->name('register.destroy');
 
 Route::controller(SessionController::class)->group(function () {

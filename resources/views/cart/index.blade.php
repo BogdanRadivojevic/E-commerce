@@ -8,60 +8,45 @@
         <x-section class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Your Cart</h2>
 
-            <!-- Check if cart has items -->
-            @if($cartItems->isEmpty() || $cartTotal == null)
-                <div class="text-center text-lg text-gray-600">
-                    <p>Your cart is empty. <a href="{{ route('product.index') }}" class="text-blue-500 hover:text-blue-600 font-semibold">Browse Products</a></p>
+            <!-- Flash & Error Messages -->
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {{ session('success') }}
                 </div>
+            @endif
 
-                @if (session('success'))
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-4">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                    @if (session('error'))
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+            @if (session('error'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-                    @if ($errors->any())
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                            <ul class="list-disc pl-5">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <ul class="list-disc pl-5">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if ($cartItems->isEmpty() || $cartTotal == null)
+                <div class="text-center text-lg text-gray-600">
+                    <p>Your cart is empty.
+                        <a href="{{ route('product.index') }}" class="text-blue-500 hover:text-blue-600 font-semibold">
+                            Browse Products
+                        </a>
+                    </p>
+                </div>
             @else
-                @if (session('success'))
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-4">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                    @if (session('error'))
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-
-                    @if ($errors->any())
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                            <ul class="list-disc pl-5">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                 <div class="space-y-8">
                     @foreach ($cartItems as $order)
                         @foreach ($order->products as $product)
                             <div class="cart-item flex items-center justify-between bg-gray-50 p-4 rounded-lg shadow-sm">
                                 <div class="flex items-center space-x-4">
                                     <a href="{{ route('product.show', $product) }}">
-                                        <img src="{{ asset($product->image_path) }}" alt="{{ $product->model }}" class="w-20 h-20 object-cover rounded-md">
+                                        <img src="{{ asset($product->imageUrl()) }}" alt="{{ $product->model }}" class="w-20 h-20 object-cover rounded-md">
                                     </a>
                                     <div>
                                         <a href="{{ route('product.show', $product) }}">

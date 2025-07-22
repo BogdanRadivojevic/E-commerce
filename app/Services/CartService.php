@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Order;
+use App\Models\Product;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,13 +44,18 @@ class CartService implements ICartService
     {
         $cart = $this->getCart(); // Dohvata trenutnu korpu korisnika.
 
+        $product = Product::findOrFail($product);
+
         // Pronalazi proizvod u korpi koristeći find().
         $existingProduct = $cart->products()->find($product);
 
-        // fixme: iz nekog razloga ne radi kako treba
-//        if ($existingProduct->stock <= 0) {
-//            throw new \Exception("Insufficient stock for product: {$existingProduct->model}");
-//        }
+        $currentQuantityInCart = $existingProduct ? $existingProduct->pivot->quantity : 0;  // Ako proizvod ne postoji u korpi, inicijalizira se kolicina na 0
+
+        $requestedQuantity = $currentQuantityInCart + $quantity;
+
+        if ($product->stock < $requestedQuantity) {
+            throw new \Exception("Insufficient stock for product: {$product->model}. Available: {$product->stock}, requested: {$requestedQuantity}.");
+        }
 
         if ($existingProduct) {
             // Ažurira količinu proizvoda u pivot tabeli.

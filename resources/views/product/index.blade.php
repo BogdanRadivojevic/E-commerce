@@ -10,11 +10,11 @@
             <div class="flex justify-between items-center">
                 <div>
                     <span class="text-gray-600">Sort by:</span>
-                    <a href="{{ route('product.index', ['sort_by' => 'created_at', 'order' => request('order') == 'desc' ? 'asc' : 'desc']) }}"
+                    <a href="{{ route('product.index', array_merge(request()->all(), ['sort_by' => 'brand', 'order' => request('order') == 'desc' ? 'asc' : 'desc'])) }}"
                        class="text-blue-600 hover:text-blue-800">Date</a> |
-                    <a href="{{ route('product.index', ['sort_by' => 'brand', 'order' => request('order') == 'desc' ? 'asc' : 'desc']) }}"
+                    <a href="{{ route('product.index',  array_merge(request()->all(), ['sort_by' => 'brand', 'order' => request('order') == 'desc' ? 'asc' : 'desc'])) }}"
                        class="text-blue-600 hover:text-blue-800">Name</a> |
-                    <a href="{{ route('product.index', ['sort_by' => 'price', 'order' => request('order') == 'desc' ? 'asc' : 'desc']) }}"
+                    <a href="{{ route('product.index',  array_merge(request()->all(), ['sort_by' => 'brand', 'order' => request('order') == 'desc' ? 'asc' : 'desc'])) }}"
                        class="text-blue-600 hover:text-blue-800">Price</a>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                             @auth
                                 @if(auth()->user()->isAdmin())
                                     <!-- Check if user is admin -->
-                                    <p class="text-sm text-gray-600">Stock: {{ $product->stock }}</p>
+                                    <p class="text-sm text-gray-600 {{ $product->stock == 0 ? 'text-red-600' : '' }}">Stock: {{ $product->stock }}</p>
                                 @endif
                             @endauth
                         </div>
