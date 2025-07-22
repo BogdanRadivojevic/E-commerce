@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#user-suggestions {
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input::-ms-reveal {
+    display: none;
+}
+input::-ms-clear {
+    display: none;
+}
