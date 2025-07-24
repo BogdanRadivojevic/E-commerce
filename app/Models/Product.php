@@ -42,7 +42,7 @@ class Product extends Model
         }
 
         // fallback placeholder
-        return asset('images/placeholder.jpg');
+        return asset('public/images/placeholder.jpg');
     }
 
 }

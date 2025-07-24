@@ -1,0 +1,24 @@
+FROM php:8.4.1-apache
+
+# Install system dependencies, Node.js & npm
+RUN apt-get update && apt-get install -y \
+    git unzip curl libpng-dev libonig-dev libzip-dev sqlite3 libsqlite3-dev \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs \
+    && docker-php-ext-install pdo pdo_mysql pdo_sqlite mbstring zip exif pcntl bcmath gd opcache
+
+RUN a2enmod rewrite
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+
+WORKDIR /var/www/html
+
+# Copy code
+COPY . /var/www/html
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+RUN composer install
+RUN npm install
+
+EXPOSE 80

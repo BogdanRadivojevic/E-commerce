@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: myapp_prod_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - APP_ENV=production
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+    volumes: []  # Avoid mounting source code
+    ports:
+      - "8080:80"
+    command: apache2-foreground
