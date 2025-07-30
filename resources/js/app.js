@@ -4,3 +4,4 @@ import './userSearch.js';
 import './productImagePreview.js';
 import './notification.js';
 import './togglePassword.js';
+import './editModal.js';

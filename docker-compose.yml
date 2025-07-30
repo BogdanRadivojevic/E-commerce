@@ -1,12 +1,16 @@
-version: '3.8'
+    version: '3.8'
 
-services:
-    app:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-            - "8000:80"
-        volumes:
-            - .:/var/www/html
-            - ./database/database.sqlite:/var/www/html/database/database.sqlite
+    services:
+        app:
+            build:
+                context: .
+                dockerfile: Dockerfile
+            ports:
+                - "8000:80"
+            volumes:
+                - ./app:/var/www/html/app
+                - ./routes:/var/www/html/routes
+                - ./resources:/var/www/html/resources
+                - ./database:/var/www/html/database
+                - ./storage:/var/www/html/storage
+                - ./bootstrap/cache:/var/www/html/bootstrap/cache

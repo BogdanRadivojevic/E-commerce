@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Inbox;
 use App\Models\Order;
 use App\Models\Product;
@@ -27,12 +28,20 @@ class DatabaseSeeder extends Seeder
 //        $adminRole = Role::factory()->create(['name' => 'admin']);
 //        $customerRole = Role::factory()->create(['name' => 'customer']);
 
+
+
         // Create users and assign roles
         $admins = User::factory(5)->create(['role_id' => Role::where('name', 'admin')->first()->id]);
         $customers = User::factory(10)->create(['role_id' => Role::where('name', 'customer')->first()->id]);
 
-        // Kreiranje proizvoda
-        Product::factory(20)->create();
+        // Kreiranje kategorije
+        $categories = Category::factory()->count(5)->create();
+
+        // Create 20 products and assign a random category to each
+        Product::factory(20)->create()->each(function ($product) use ($categories) {
+            $product->category_id = $categories->random()->id;
+            $product->save();
+        });
 
         // Kreiranje narudžbine
         Order::factory()
@@ -74,14 +83,5 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-//        \App\Models\Role::factory(2)->create(['name' => 'admin']);
-//        \App\Models\Role::factory(5)->create(['name' => 'customer']);
-//
-//        \App\Models\User::factory(10)->create();
-//        \App\Models\Product::factory(15)->create();
-//        \App\Models\Order::factory(20)->create();
-//        \App\Models\ProductService::factory(10)->create();
-//        \App\Models\Inbox::factory(5)->create();
     }
 }

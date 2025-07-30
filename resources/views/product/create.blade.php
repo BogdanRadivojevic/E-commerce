@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Edit Product')
+@section('title', 'Add Product')
 
 @section('content')
     <x-section>
@@ -22,7 +22,7 @@
             <!-- Model Input -->
             <div class="mb-4">
                 <x-form-label for="model">Model</x-form-label>
-                <x-form-input id="model" name="model" type="text" required placeholder="Model" />
+      `          <x-form-input id="model" name="model" type="text" required placeholder="Model" />
                 @error('model')
                     <span class="text-red-600 text-sm mt-2">{{ $message }}</span>
                 @enderror
@@ -56,6 +56,32 @@
                 @enderror
             </div>
 
+            <!-- Category Dropdown -->
+            <div class="mb-4">
+                <x-form-label for="category_id">Category</x-form-label>
+                <div class="relative">
+                    <select id="category_id" name="category_id" required
+                            class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-10 rounded-lg leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 shadow-sm">
+                        <option value="">-- Select Category --</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <!-- Custom dropdown arrow -->
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+                @error('category_id')
+                <span class="text-red-600 text-sm mt-2">{{ $message }}</span>
+                @enderror
+            </div>
 
             <!-- Image Input (Optional) -->
             <div class="mb-4">

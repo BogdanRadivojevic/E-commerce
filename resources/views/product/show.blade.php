@@ -36,6 +36,11 @@
                 ${{ number_format($product->price, 2) }}
             </p>
 
+            <p class="text-sm text-gray-600 mb-2">
+                Category:
+                <span class="font-medium text-gray-800">{{ $product->category?->name ?? 'Uncategorized' }}</span>
+            </p>
+
             @auth
                 @if(Auth::user()->isAdmin())
                     <p class="text-sm text-gray-500">Stock: {{ $product->stock }}</p>

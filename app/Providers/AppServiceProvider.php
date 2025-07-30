@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Services\Classes\CartService;
+use App\Services\Classes\CategoryService;
 use App\Services\Classes\OrderService;
 use App\Services\Classes\ProductService;
 use App\Services\Classes\ProductServiceService;
 use App\Services\Interfaces\ICartService;
+use App\Services\Interfaces\ICategoryService;
 use App\Services\Interfaces\IOrderService;
 use App\Services\Interfaces\IProductService;
 use App\Services\Interfaces\IProductServiceService;
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ICartService::class, CartService::class);
         $this->app->bind(IProductServiceService::class, ProductServiceService::class);
         $this->app->bind(IProductService::class, ProductService::class);
+        $this->app->bind(ICategoryService::class, CategoryService::class);
     }
 
     /**

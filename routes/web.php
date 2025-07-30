@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -69,9 +70,19 @@ Route::middleware(['role:admin'])->group(function () {
         Route::get('/orders/completed', 'completedOrders')->name('orders.completed');
         Route::post('/orders/completed/pdf', 'generatePDF')->name('orders.generatePDF');
     });
+
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/categories', 'index')->name('categories.index');
+        Route::get('/categories/create', 'create')->name('categories.create');
+        Route::post('/categories', 'store')->name('categories.store');
+        Route::get('/categories/{category}/edit', 'edit')->name('categories.edit');
+        Route::put('/categories/{category}', 'update')->name('categories.update');
+        Route::delete('/categories/{category}', 'destroy')->name('categories.destroy');
+    });
 });
 
 Route::post('/notifications/read', function () {
     auth()->user()->unreadNotifications()->update(['read_at' => now()]);
     return response()->json(['status' => 'ok']);
 })->name('notifications.read');
+

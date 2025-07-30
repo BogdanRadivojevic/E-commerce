@@ -3,23 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Services\Interfaces\ICategoryService;
 use App\Services\Interfaces\IProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     private IProductService $productService;
+    private ICategoryService $categoryService;
 
-    public function __construct(IProductService $productService)
+    public function __construct(IProductService $productService, ICategoryService $categoryService)
     {
         $this->productService = $productService;
+        $this->categoryService = $categoryService;
     }
 
     public function index(Request $request)
     {
         $products = $this->productService->index($request);
 
-        return view('product.index', compact('products'));
+        $categories = $this->categoryService->getAll();
+
+        return view('product.index', compact('products', 'categories'));
     }
 
     public function show(Product $product)
@@ -29,7 +34,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('product.create');
+        $categories = $this->categoryService->getAll();
+        return view('product.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -41,7 +47,9 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('product.edit', compact('product'));
+        $categories = $this->categoryService->getAll();
+
+        return view('product.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)

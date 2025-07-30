@@ -5,16 +5,37 @@
 @section('content')
     <section class="space-y-6">
         <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
+            <!-- Category dropdown -->
+            <form method="GET" action="{{ route('product.index') }}">
+                <select name="category_id"
+                        onchange="this.form.submit()"
+                        class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:border-blue-300">
+                    <option value="" {{ request()->has('category_id') ? '' : 'selected' }}>All Categories</option>
 
+                    @foreach($categories as $category)
+                        <option
+                            value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            <option value="null" {{ request('category_id') === 'null' ? 'selected' : '' }}>
+                                Uncategorized
+                            </option>
+                        @endif
+                    @endauth
+                </select>
+            </form>
             <!-- Sorting Controls -->
             <div class="flex justify-between items-center">
                 <div>
                     <span class="text-gray-600">Sort by:</span>
-                    <a href="{{ route('product.index', array_merge(request()->all(), ['sort_by' => 'brand', 'order' => request('order') == 'desc' ? 'asc' : 'desc'])) }}"
+                    <a href="{{ route('product.index', array_merge(request()->all(), ['sort_by' => 'created_at', 'order' => request('order') == 'desc' ? 'asc' : 'desc'])) }}"
                        class="text-blue-600 hover:text-blue-800">Date</a> |
                     <a href="{{ route('product.index',  array_merge(request()->all(), ['sort_by' => 'brand', 'order' => request('order') == 'desc' ? 'asc' : 'desc'])) }}"
                        class="text-blue-600 hover:text-blue-800">Name</a> |
-                    <a href="{{ route('product.index',  array_merge(request()->all(), ['sort_by' => 'brand', 'order' => request('order') == 'desc' ? 'asc' : 'desc'])) }}"
+                    <a href="{{ route('product.index',  array_merge(request()->all(), ['sort_by' => 'price', 'order' => request('order') == 'desc' ? 'asc' : 'desc'])) }}"
                        class="text-blue-600 hover:text-blue-800">Price</a>
                 </div>
             </div>
@@ -70,10 +91,14 @@
                             <p class="text-sm text-gray-600 mt-2">Price: <span
                                     class="font-semibold text-green-600">${{ number_format($product->price, 2) }}</span>
                             </p>
+                            <p class="text-sm text-gray-600 {{ $product->category_id == null ? 'text-red-600' : '' }}">
+                                Category: {{ $product->category->name ?? 'Uncategorized' }}</p>
+
                             @auth
                                 @if(auth()->user()->isAdmin())
                                     <!-- Check if user is admin -->
-                                    <p class="text-sm text-gray-600 {{ $product->stock == 0 ? 'text-red-600' : '' }}">Stock: {{ $product->stock }}</p>
+                                    <p class="text-sm text-gray-600 {{ $product->stock == 0 ? 'text-red-600' : '' }}">
+                                        Stock: {{ $product->stock }}</p>
                                 @endif
                             @endauth
                         </div>

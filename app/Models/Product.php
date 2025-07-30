@@ -10,11 +10,16 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['brand', 'model', 'price', 'stock', 'image_path'];
+    protected $fillable = ['brand', 'model', 'price', 'stock', 'description', 'category_id', 'image_path'];
 
     public function orders()
     {
         return $this->belongsToMany(Order::class)->withPivot('quantity');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     protected static function boot()

@@ -16,6 +16,7 @@ class ProductQueryBuilder extends QueryBuilder
     // Apply filters based on the request
     public function applyFilters(Request $request): self
     {
+        $this->applyCategoryFilter($request);
         $this->applySorting($request);
         $this->applySearch($request);
 
@@ -43,6 +44,19 @@ class ProductQueryBuilder extends QueryBuilder
                     ->orWhere('model', 'like', '%' . $searchTerm . '%');
             });
         }
+        return $this;
+    }
+
+    public function applyCategoryFilter(Request $request): self
+    {
+        $categoryId = $request->input('category_id');
+
+        if ($categoryId === 'null' && auth()->check() && auth()->user()->isAdmin()) {
+            $this->query->whereNull('category_id');
+        } elseif (!is_null($categoryId) && $categoryId !== '') {
+            $this->query->where('category_id', $categoryId);
+        }
+
         return $this;
     }
 }
