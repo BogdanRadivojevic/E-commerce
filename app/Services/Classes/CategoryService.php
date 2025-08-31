@@ -17,7 +17,13 @@ class CategoryService implements ICategoryService
 
     public function store(Request $request): void
     {
-        // TODO: Implement store() method.
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name',
+        ]);
+
+        Category::create([
+            'name' => $validated['name'],
+        ]);
     }
 
     public function update(Request $request, Category $category): void

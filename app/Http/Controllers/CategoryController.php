@@ -23,9 +23,18 @@ class CategoryController extends Controller
         return view('categories.index', compact('categories'));
     }
 
-    public function edit()
+    public function create()
     {
-        return view('categories.edit');
+        return view('categories.create');
+    }
+
+    public function store(Request $request)
+    {
+        $this->category->store($request);
+
+        return redirect()
+            ->route('categories.index')
+            ->with('message', 'Category created successfully!');
     }
 
     public function update(Request $request, Category $category)

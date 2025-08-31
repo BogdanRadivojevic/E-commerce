@@ -4,7 +4,7 @@
 
 @section('content')
     <x-section>
-        This is the welcome page<br />
+        This is the welcome page<br/>
         Here will be displayed products
 
         @auth
